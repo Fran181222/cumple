@@ -6,7 +6,15 @@ const musicHint = document.getElementById("musicHint");
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 
-const sparkleChoices = ["⭐", "✨", "💫", "🌟"];
+const sparkleChoices = ["\u2B50", "\u2728", "\uD83D\uDCAB", "\uD83C\uDF1F"];
+const heartPhotoSources = [
+  "fotocard.jpeg",
+  "foto1.jpeg",
+  "foto2.jpeg",
+  "foto3.jpeg",
+  "foto4.jpeg"
+];
+const mobileTilts = ["-5deg", "4deg", "-3deg", "5deg", "-4deg", "3deg"];
 
 let revealStarted = false;
 let hintHidden = false;
@@ -30,7 +38,13 @@ function createSparkles() {
 }
 
 function buildHeartSwarm() {
-  const points = window.innerWidth < 640 ? 14 : 18;
+  const viewportWidth = window.innerWidth;
+  const isSmallMobile = viewportWidth < 620;
+  const isTablet = viewportWidth < 900;
+  const points = isSmallMobile ? 6 : isTablet ? 12 : 18;
+  const xScale = isSmallMobile ? 1.02 : isTablet ? 1.14 : 1.42;
+  const yScale = isSmallMobile ? 1.12 : isTablet ? 1.34 : 1.66;
+  const yOffset = isSmallMobile ? 52 : isTablet ? 51 : 50;
   const positions = [];
 
   for (let index = 0; index < points; index += 1) {
@@ -51,20 +65,30 @@ function buildHeartSwarm() {
     const card = document.createElement("div");
     const image = document.createElement("img");
 
-    image.src = "fotocard.jpeg";
+    image.src = heartPhotoSources[index % heartPhotoSources.length];
     image.alt = "";
 
-    const xPercent = 50 + point.x * 1.58;
-    const yPercent = 49 - point.y * 1.8;
-
     card.className = "heart-card";
-    card.style.setProperty("--x", `${xPercent}%`);
-    card.style.setProperty("--y", `${yPercent}%`);
+    card.style.setProperty("--x", `${50 + point.x * xScale}%`);
+    card.style.setProperty("--y", `${yOffset - point.y * yScale}%`);
     card.style.setProperty("--enter-delay", `${0.92 + index * 0.05}s`);
-    card.style.setProperty("--drift-x", `${-85 + Math.random() * 170}px`);
-    card.style.setProperty("--drift-y", `${-105 + Math.random() * 210}px`);
-    card.style.setProperty("--spin", `${-18 + Math.random() * 36}deg`);
-    card.style.setProperty("--float-duration", `${10 + Math.random() * 7}s`);
+    card.style.setProperty("--tilt", mobileTilts[index % mobileTilts.length]);
+    card.style.setProperty(
+      "--drift-x",
+      `${(isSmallMobile ? -44 : -85) + Math.random() * (isSmallMobile ? 88 : 170)}px`
+    );
+    card.style.setProperty(
+      "--drift-y",
+      `${(isSmallMobile ? -68 : -105) + Math.random() * (isSmallMobile ? 136 : 210)}px`
+    );
+    card.style.setProperty(
+      "--spin",
+      `${(isSmallMobile ? -10 : -18) + Math.random() * (isSmallMobile ? 20 : 36)}deg`
+    );
+    card.style.setProperty(
+      "--float-duration",
+      `${(isSmallMobile ? 9 : 10) + Math.random() * (isSmallMobile ? 4 : 7)}s`
+    );
 
     card.appendChild(image);
     heartSwarm.appendChild(card);
@@ -85,7 +109,8 @@ function floatHeartSwarm() {
 }
 
 function hideMusicHint() {
-  if (hintHidden) {
+  if (hintHidden || !musicHint) {
+    hintHidden = true;
     return;
   }
 
@@ -95,10 +120,10 @@ function hideMusicHint() {
 
 function setMusicButtonState(playing) {
   if (playing) {
-    musicToggle.textContent = "♪ Musiquita sonando";
+    musicToggle.textContent = "\u266A Musiquita sonando";
     musicToggle.classList.add("is-playing", "is-visible");
   } else {
-    musicToggle.textContent = "♪ Activar cancion";
+    musicToggle.textContent = "\u266A Activar cancion";
     musicToggle.classList.remove("is-playing");
     musicToggle.classList.add("is-visible");
   }
@@ -139,7 +164,7 @@ function revealSurprise() {
   tryPlayMusic();
 
   window.setTimeout(() => {
-    surpriseScene.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, 250);
 }
 
