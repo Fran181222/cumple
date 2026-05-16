@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz cumpleanos Keilita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="floating-stars" aria-hidden="true"></div>
+  <button class="music-toggle is-visible" id="musicToggle" type="button">♪ Activar cancion</button>
+
+  <main class="experience">
+    <section class="scene scene-hero">
+      <div class="hero-decor hero-decor-left" aria-hidden="true"></div>
+      <div class="hero-decor hero-decor-right" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Para mi amiga Keilita</p>
+        <h1>Feliz cumpleanos <span>Keilita</span></h1>
+        <p class="hero-text">Que tu dia este lleno de mimos, risas y momentos preciosos.</p>
+
+        <button class="surprise-button" id="surpriseButton" type="button">
+          <span class="button-main">Boton sorpresa</span>
+        </button>
+
+      </div>
+
+      <div class="frog-frame">
+        <div class="frog-glow"></div>
+        <img src="foto1.jpeg" alt="Ranita de cumpleanos con sombrerito" class="frog-image">
+      </div>
+    </section>
+
+    <section class="scene scene-surprise" id="surpriseScene" aria-hidden="true">
+      <div class="background-wash"></div>
+
+      <div class="surprise-content">
+        <div class="message-card">
+          <p class="mini-title">Con muchisimo cariño</p>
+          <h2>Espero que pases un dia muy bonito</h2>
+          <p class="message-strong">Te quiero muchisimo</p>
+          <p class="message-signature">Julieta</p>
+        </div>
+
+        <div class="memory-stage" aria-label="Recuerdos tiernos">
+          <figure class="memory-card memory-card-turtle">
+            <img src="foto2.jpeg" alt="Tortuguita con vela de cumpleanos">
+          </figure>
+          <figure class="memory-card memory-card-left">
+            <img src="foto3.jpeg" alt="Ilustracion tierna de ranitas amigas">
+          </figure>
+          <figure class="memory-card memory-card-right">
+            <img src="foto4.jpeg" alt="Ilustracion de dos ranitas abrazandose">
+          </figure>
+        </div>
+      </div>
+
+      <div class="heart-swarm" id="heartSwarm" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <audio id="bgMusic" preload="auto" autoplay loop playsinline>
+    <source src="song.m4a" type="audio/mp4">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
